@@ -9,14 +9,14 @@ class Node:
         if otherNode==None:
             print("Cant connect with None")
             return
-        index=self.neighbourExist(otherNode)
+        index=self.find(otherNode)
         if index!=None:
             self.neighbours.append([otherNode, edgePrice])
             otherNode.neighbours.append([self, edgePrice])
         else:
             #Edit edge
             self.neighbours[index][1]=edgePrice  #nastav si novu cenu
-            otherIndex=otherNode.find(self,edgePrice) #najdi tuto hranu u suseda
+            otherIndex=otherNode.find(self) #najdi tuto hranu u suseda
             otherNode.neighbours[otherIndex][1]=edgePrice #uprav cenu aj na hrane suseda
 
 
