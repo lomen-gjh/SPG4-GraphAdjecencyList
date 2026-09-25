@@ -27,15 +27,4 @@ class Node:
             if otherNode==self.neighbours[i][0]:
                 return i
         return None
-    #recursive draw, so I dont have to draw the edges twice
-    def draw(self, visited, canvas):
-        visited.append(self.data)
-        canvas.create_oval(self.x-15, self.y-15, self.x+15, self.y+15)
-        canvas.create_text(self.x, self.y, text=self.data)
-        for edge in self.neighbours:
-            if edge[0].data not in visited:
-                canvas.create_line(edge[0].x, edge[0].y, self.x, self.y)
-                ex=(edge[0].x+self.x)/2
-                ey=(edge[0].y+self.y)/2
-                canvas.create_text(ex, ey, text=edge[1])
-                edge[0].draw(visited, canvas)
+
