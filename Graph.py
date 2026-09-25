@@ -9,6 +9,7 @@ class Graph:
         else:
             print(f"{data} already exists")
 
+    #Connect two nodes, only if they are in self.nodes dictionary
     def connectNodes(self, data1, data2, edgePrice):
         if data1 in self.nodes and data2 in self.nodes:
             self.nodes[data1].connect(self.nodes[data2], edgePrice)
@@ -20,7 +21,7 @@ class Graph:
                 canvas.create_line(node.x, node.y, edge[0].x, edge[0].y)
                 ex=(node.x+edge[0].x)/2
                 ey=(node.y+edge[0].y)/2
-                canvas.create_text(ex, ey, text=edge[1])
+                canvas.create_text(ex, ey, text=edge[1]) #price drawn at mid point
         #Separate loop for edges, so it looks nice :)
         for node in self.nodes.values():
             canvas.create_oval(node.x - 15, node.y - 15, node.x + 15, node.y + 15, fill="white")
