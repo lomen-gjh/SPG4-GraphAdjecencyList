@@ -10,7 +10,7 @@ class Node:
             print("Cant connect with None")
             return
         index=self.find(otherNode)
-        if index!=None:
+        if index==None:
             self.neighbours.append([otherNode, edgePrice])
             otherNode.neighbours.append([self, edgePrice])
         else:
