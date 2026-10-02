@@ -28,3 +28,12 @@ class Node:
                 return i
         return None
 
+
+    def disconnect_neighbours(self):
+        for n in self.neighbours:  #pre kazdeho suseda
+            for i in range(len(n[0].neighbours)): #prejdi susedovych susedov
+                if n[0].neighbours[i][0]==self: #ked najdem self medzi susedovimy susedmi
+                    n[0].neighbours.remove(n[0].neighbours[i]) #tak odstran dvojicu [vrchol, cena]
+                    break #ukonci vnutorny cyklus
+
+
