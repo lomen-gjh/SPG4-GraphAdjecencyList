@@ -10,6 +10,10 @@ g.addNode("B", 200, 100)
 g.addNode("C", 150, 200)
 g.connectNodes("A", "B", 5)
 g.connectNodes("A", "C", 10)
+g.connectNodes("B", "C", 5)
 g.draw(canvas)
+g.deleteNode("C")
+g.draw(canvas)
+
 
 canvas.mainloop()

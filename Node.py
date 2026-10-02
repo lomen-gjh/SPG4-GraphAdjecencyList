@@ -35,5 +35,6 @@ class Node:
                 if n[0].neighbours[i][0]==self: #ked najdem self medzi susedovimy susedmi
                     n[0].neighbours.remove(n[0].neighbours[i]) #tak odstran dvojicu [vrchol, cena]
                     break #ukonci vnutorny cyklus
+        self.neighbours=[] #zrusime vstah zo susedmi na self vrchole
 
 

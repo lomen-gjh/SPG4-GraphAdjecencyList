@@ -15,6 +15,7 @@ class Graph:
             self.nodes[data1].connect(self.nodes[data2], edgePrice)
 
     def draw(self, canvas):
+        canvas.delete("all")
         for node in self.nodes.values():
             #edge is a pair: [neighbour_node, edge_price]
             for edge in node.neighbours:
@@ -26,5 +27,10 @@ class Graph:
         for node in self.nodes.values():
             canvas.create_oval(node.x - 15, node.y - 15, node.x + 15, node.y + 15, fill="white")
             canvas.create_text(node.x, node.y, text=node.data)
+
+    def deleteNode(self, data):
+        if data in self.nodes:
+            self.nodes[data].disconnect_neighbours()
+            self.nodes.pop(data)
 
 
