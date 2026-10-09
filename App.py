@@ -5,9 +5,11 @@ e1=Entry(window)
 l2=Label(window, text="Zadaj cenu hrany")
 e2=Entry(window)
 b1=Button(window, text="Vynuluj graf", command=lambda:reset_graph()) #treba dorobit command...
+b2=Button(window, text="Vyfarby", command=lambda:graph_coloring())
+b3=Button(window, text="Vynuluj graf", command=lambda:reset_graph())
 canvas = Canvas(window,width=800, height=600, bg='white')
 canvas.pack(side="right")
-for i in l1,e1,l2,e2,b1:
+for i in l1,e1,l2,e2,b1,b2,b3:
     i.pack()
 
 from Graph import Graph
@@ -49,7 +51,13 @@ canvas.bind("<Button-3>", connect_node)
 #ZADANIE 2: Prepojte vrcholy pravym klikom => 1. klik si zapamata Vrchol, 2. klik prepoji oznaceny vrchol s aktualnym, osetrite Nespravne vstupy
 #Zadanie 3: Kliknutim stredneho tlacidla sa vymaze vrchol aj so vsetkymi jeho hranami
 
+
+def graph_coloring():
+    g.graphColoring()
+    g.draw(canvas)
+
 def reset_graph():
-    print("Tato funkcia vynuluje graf")
+    g.nodes={}
+    g.draw(canvas)
 
 canvas.mainloop()

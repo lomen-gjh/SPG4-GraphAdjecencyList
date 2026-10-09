@@ -1,3 +1,4 @@
+import random
 from Node import Node
 class Graph:
     def __init__(self):
@@ -25,7 +26,10 @@ class Graph:
                 canvas.create_text(ex, ey, text=edge[1]) #price drawn at mid point
         #Separate loop for edges, so it looks nice :)
         for node in self.nodes.values():
-            canvas.create_oval(node.x - 15, node.y - 15, node.x + 15, node.y + 15, fill="white")
+            if node.color:
+                canvas.create_oval(node.x - 15, node.y - 15, node.x + 15, node.y + 15, fill=node.color)
+            else:
+                canvas.create_oval(node.x - 15, node.y - 15, node.x + 15, node.y + 15, fill="white")
             canvas.create_text(node.x, node.y, text=node.data)
 
     def deleteNode(self, data):
@@ -33,4 +37,23 @@ class Graph:
             self.nodes[data].disconnect_neighbours()
             self.nodes.pop(data)
 
+    def graphColoring(self):
+        #reset colors
+        for node in self.nodes.values():
+            node.color = None
+        used_colors = set()
+        for node in self.nodes.values():
+            neighbour_colors = set()
+            for neighbour, edge_price in node.neighbours:
+                if neighbour.color is not None:
+                    neighbour_colors.add(neighbour.color)
 
+            available_colors = used_colors-neighbour_colors
+            if available_colors:
+                color=next(iter(available_colors))
+            else:
+                color=f"#{random.randint(0,0xFFFFFF):06x}"
+                while color in used_colors:
+                    color=f"#{random.randint(0,0xFFFFFF):06x}"
+                used_colors.add(color)
+            node.color = color
