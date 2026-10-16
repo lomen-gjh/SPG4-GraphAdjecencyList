@@ -1,4 +1,5 @@
 from tkinter import *
+from itertools import count
 window = Tk()
 l1=Label(window, text="Zadaj meno vrcholu")
 e1=Entry(window)
@@ -15,14 +16,13 @@ for i in l1,e1,l2,e2,b1,b2,b3:
 from Graph import Graph
 g=Graph() #create a graph object
 oznac=None
-count=1
+poradie=count()
 def create_node(event):
     global g, e1, count
     if e1.get()!="":
         g.addNode(e1.get(),event.x,event.y)
     else:
-        g.addNode("A"+str(count),event.x,event.y)
-        count+=1
+        g.addNode("A"+str(next(poradie)),event.x,event.y)
     g.draw(canvas)
 
 def connect_node(event):
