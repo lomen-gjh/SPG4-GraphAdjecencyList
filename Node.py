@@ -5,6 +5,8 @@ class Node:
         self.y = y
         self.neighbours=[]
         self.color=None
+        self.price=None
+        self.prev=None
 
     def connect(self, otherNode, edgePrice):
         if otherNode==None:

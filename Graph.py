@@ -1,3 +1,5 @@
+from heapq import heappush, heappop
+from itertools import count
 import random
 from Node import Node
 class Graph:
@@ -64,3 +66,37 @@ class Graph:
                     color=f"#{random.randint(0,0xFFFFFF):06x}"
                 used_colors.add(color) #add the new color to used color
             node.color = color #assign the color (either from available ones or new one) to node.color
+
+
+    def dijkstra_path(self, start, end, canvas):
+        #reset graph for dijkstra
+        for value in self.nodes.values():
+            value.price=float("inf") #cena je nekonecno
+            value.prev=None
+        sequence=count()
+        queue = [(0,next(sequence),start)]
+        start.price=0 #set the first node to 0
+        #we stop when the queue is empty
+        while queue:
+            NodePrice, order, node = heappop(queue)
+            if NodePrice!=node.price:
+                continue
+
+            if node==end:
+                break
+            #check neighbors
+            for neighbour, edge_price in node.neighbours:
+
+                if neighbour.price>node.price+edge_price:
+                    neighbour.price=node.price+edge_price
+                    neighbour.prev=node
+                    heappush(queue,(neighbour.price, next(sequence), neighbour))
+
+        self.draw(canvas)
+        self.drawPath(end, canvas)
+        return end.price
+
+    def drawPath(self, node, canvas):
+        while node.prev != None:
+            canvas.create_line(node.x, node.y, node.prev.x, node.prev.y, fill='blue', width=2)
+            node = node.prev
