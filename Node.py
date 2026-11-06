@@ -41,3 +41,8 @@ class Node:
         self.neighbours=[] #zrusime vstah zo susedmi na self vrchole
 
 
+    #comparison of nodes in Prims algorithm, if need be (not necessary if counter is used)
+    def __lt__(self, other):
+        return self.data<other.data
+
+

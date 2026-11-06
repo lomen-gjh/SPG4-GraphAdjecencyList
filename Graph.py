@@ -100,3 +100,42 @@ class Graph:
         while node.prev != None:
             canvas.create_line(node.x, node.y, node.prev.x, node.prev.y, fill='blue', width=2)
             node = node.prev
+
+    def prim(self, start, canvas):
+
+        visited = {start}
+        mst = [] # comprised of edges. Edge is represented as tuple (Node1, Node2, price)
+        total_price = 0
+
+        counter = count() #counter
+        queue = [] #Our binary heap: contains edges to be processed as tuple (edgeprice, counter, startnode, neighbour node
+
+        # Add starting node's edges to priority queue
+        for neighbour, edge_price in start.neighbours:
+            heappush(queue, (edge_price, next(counter), start, neighbour))
+
+        while queue and len(visited) < len(self.nodes):
+
+            edge_price, order, current, neighbour = heappop(queue)
+
+            # Skip if destination is already visited
+            if neighbour in visited:
+                continue
+
+            #add current neighbor to visited
+            visited.add(neighbour)
+            # Add edge to MST
+            mst.append((current, neighbour, edge_price))
+            total_price += edge_price
+
+            # Add new candidate edges
+            for next_node, next_price in neighbour.neighbours:
+
+                if next_node not in visited:
+                    heappush(queue, (next_price, next(counter), neighbour, next_node))
+        self.draw_mst(mst,canvas)
+        return mst, total_price
+
+    def draw_mst(self, mst, canvas):
+        for node, neighbour, edge_price in mst:
+            canvas.create_line(node.x, node.y, neighbour.x, neighbour.y, fill='blue', width=2)

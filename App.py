@@ -9,13 +9,17 @@ l3=Label(window, text="Dijkstra start")
 e3=Entry(window)
 l4=Label(window, text="Dijkstra end")
 e4=Entry(window)
+l5=Label(window, text="MST")
+e5=Entry(window)
+e5=Entry(window)
 b1=Button(window, text="Vynuluj graf", command=lambda:reset_graph()) #treba dorobit command...
 b2=Button(window, text="Vyfarby", command=lambda:graph_coloring())
 b3=Button(window, text="Vynuluj graf", command=lambda:reset_graph())
 b4=Button(window, text="Shortest path", command=lambda:shortestPath(e3.get(),e4.get()))
+b5=Button(window, text="MST", command=lambda:mst(e5.get()))
 canvas = Canvas(window,width=800, height=600, bg='white')
 canvas.pack(side="right")
-for i in l1,e1,l2,e2,b1,b2,b3,l3,e3,l4,e4,b4:
+for i in l1,e1,l2,e2,b1,b2,b3,l3,e3,l4,e4,b4,l5,e5,b5:
     i.pack()
 
 from Graph import Graph
@@ -68,5 +72,8 @@ def reset_graph():
 def shortestPath(start, end):
     print("Dijkstra Pressed")
     g.dijkstra_path(g.nodes[start],g.nodes[end],canvas)
+
+def mst(start):
+    g.prim(g.nodes[start],canvas)
 
 canvas.mainloop()
